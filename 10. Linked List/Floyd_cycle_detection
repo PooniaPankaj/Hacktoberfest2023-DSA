@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class node
+{
+public:
+    int val;
+    node *next;
+};
+
+class LinkedList
+{
+public:
+    node *head;
+    node *tail;
+    // constructor;
+    LinkedList()
+    {
+        head = NULL;
+    }
+
+    // function use for inserting node into the linkedList
+
+    void insert(int val)
+    {
+        node *temp = new node();
+        temp->val = val;
+        if (head == NULL)
+        {
+            head = temp;
+            tail = temp;
+        }
+        else
+        {
+            tail->next = temp;
+            tail = temp;
+        }
+    }
+};
+// function which is used for detecting whther there exist a loop/cycle in our linkedList ot not
+bool detectCycle(node *root)
+{
+    node *slowPointer = root; // slow pointer which moves by 1
+    node *fastPointer = root; // fast pointer which moves by 2
+    while (slowPointer != NULL && fastPointer != NULL && fastPointer->next != NULL)
+    {
+        slowPointer = slowPointer->next;
+        fastPointer = fastPointer->next->next;
+        if (slowPointer == fastPointer) // checking if there exist a condition in which both slow and fast points to the same node
+            return 1;
+    }
+
+    return 0;
+}
